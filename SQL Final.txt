@@ -1,0 +1,298 @@
+Create 1:
+
+mysql> create database Automobile;
+Query OK, 1 row affected (0.01 sec)
+
++----------------------+
+| Tables_in_automobile |
++----------------------+
+| cars                 |
++----------------------+
+
+mysql> create table cars(ID int , Model varchar(20) primary key ,colour text(10) ,price int ,Availability text(5));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table cars(ID int , Model varchar(20) ,colour text(10) ,price int ,Availability int);
+Query OK, 0 rows affected (0.02 sec)
+
+Create 2:
+
+mysql> create table Orders(OrderID int , Inv_Number varchar(8) , CustomerName varchar(20) , VehicleID int);
+Query OK, 0 rows affected (0.02 sec)
+
+Insert 1:
+
+mysql> insert into cars values(221,'Discovey sport','wwhite',1500000,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into cars values(222,'Defender','Metallic Grey',1800000,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cars values(223,'Range Rover','Metallic Silver',1300000,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cars values(224,'Range Rover Sport','Raging Red',2000000,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into cars values(225,'Range Rover Velar','Metallic Black',2200000,1);
+Query OK, 1 row affected (0.01 sec)
+
++------+-------------------+-----------------+---------+--------------+
+| ID   | Model             | colour          | price   | Availability |
++------+-------------------+-----------------+---------+--------------+
+|  221 | Discovey sport    | wwhite          | 1500000 |            5 |
+|  222 | Defender          | Metallic Grey   | 1800000 |            3 |
+|  223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|  224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|  225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
++------+-------------------+-----------------+---------+--------------+
+
+Insert 2:
+
+mysql> insert into Orders values(1,'I-2532','Dane',223);
+Query OK, 1 row affected (0.01 sec)
+
+insert into Orders values(2,'I-4587','Elena',221);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Orders values(3,'I-5563','Jane',222);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Orders values(4,'I-7747','Jodan',225);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Orders;
++---------+------------+--------------+-----------+
+| OrderID | Inv_Number | CustomerName | VehicleID |
++---------+------------+--------------+-----------+
+|       1 | I-2532     | Dane         |       223 |
+|       2 | I-4587     | Elena        |       221 |
+|       3 | I-5563     | Jane         |       222 |
+|       4 | I-7747     | Jodan        |       225 |
++---------+------------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+Delete:
+
+mysql> delete from Orders where orderID='3';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Orders;
++---------+------------+--------------+-----------+
+| OrderID | Inv_Number | CustomerName | VehicleID |
++---------+------------+--------------+-----------+
+|       1 | I-2532     | Dane         |       223 |
+|       2 | I-4587     | Elena        |       221 |
+|       4 | I-7747     | Jodan        |       225 |
++---------+------------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+
+Update and where:
+
+ update cars set colour = 'Snow white' where ID = 221 ;
+Query OK, 1 row affected (0.01 sec)
+
++------+-------------------+-----------------+---------+--------------+
+| ID   | Model             | colour          | price   | Availability |
++------+-------------------+-----------------+---------+--------------+
+|  221 | Discovey sport    | Snow white      | 1500000 |            5 |
+|  222 | Defender          | Metallic Grey   | 1800000 |            3 |
+|  223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|  224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|  225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
++------+-------------------+-----------------+---------+--------------+
+
+
+Drop:
+
+mysql> drop table cars;
+Query OK, 0 rows affected (0.02 sec)
+
+
+Truncate:
+
+mysql> truncate table Orders;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from Orders;
+Empty set (0.01 sec)
+
+
+Alter and Primary Key:
+
+mysql> alter table cars add primary key(ID);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Alter and Foreign Key:
+
+mysql> alter table Orders add foreign key(VehicleID) references cars(VehicleID);
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Alter and Rename:
+
+mysql> alter table cars rename column ID to VehicleID;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++-----------+-------------------+-----------------+---------+--------------+
+| VehicleID | Model             | colour          | price   | Availability |
++-----------+-------------------+-----------------+---------+--------------+
+|       221 | Discovey sport    | Snow white      | 1500000 |            5 |
+|       222 | Defender          | Metallic Grey   | 1800000 |            3 |
+|       223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|       224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|       225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
++-----------+-------------------+-----------------+---------+--------------+
+
+Min and Max:
+
+mysql> select min(price) as LowestPrice From cars;
++-------------+
+| LowestPrice |
++-------------+
+|     1300000 |
++-------------+
+1 row in set (0.01 sec)
+
+
+mysql> select max(price) as HighestPrice From cars;
++--------------+
+| HighestPrice |
++--------------+
+|      2200000 |
++--------------+
+1 row in set (0.00 sec)
+
+
+Count,Avg and Sum:
+
+mysql> select count(Model) from cars;
++--------------+
+| count(Model) |
++--------------+
+|            5 |
++--------------+
+1 row in set (0.00 sec)
+
+
+mysql> select avg(price) from cars;
++--------------+
+| avg(price)   |
++--------------+
+| 1760000.0000 |
++--------------+
+1 row in set (0.00 sec)
+
+
+mysql> select sum(Availability) from cars;
++-------------------+
+| sum(Availability) |
++-------------------+
+|                15 |
++-------------------+
+1 row in set (0.00 sec)
+
+Wildcards:
+
+mysql> select * from cars where colour like'Metal%';
++-----------+-------------------+-----------------+---------+--------------+
+| VehicleID | Model             | colour          | price   | Availability |
++-----------+-------------------+-----------------+---------+--------------+
+|       222 | Defender          | Metallic Grey   | 1800000 |            3 |
+|       223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|       225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
++-----------+-------------------+-----------------+---------+--------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from cars where Model like'%Rover%';
++-----------+-------------------+-----------------+---------+--------------+
+| VehicleID | Model             | colour          | price   | Availability |
++-----------+-------------------+-----------------+---------+--------------+
+|       223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|       224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|       225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
++-----------+-------------------+-----------------+---------+--------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from cars where Model like'D_fen_er';
++-----------+----------+---------------+---------+--------------+
+| VehicleID | Model    | colour        | price   | Availability |
++-----------+----------+---------------+---------+--------------+
+|       222 | Defender | Metallic Grey | 1800000 |            3 |
++-----------+----------+---------------+---------+--------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from cars where Model like'%_fen_er';
++-----------+----------+---------------+---------+--------------+
+| VehicleID | Model    | colour        | price   | Availability |
++-----------+----------+---------------+---------+--------------+
+|       222 | Defender | Metallic Grey | 1800000 |            3 |
++-----------+----------+---------------+---------+--------------+
+1 row in set (0.00 sec)
+
+
+Orderby:
+
+mysql> select * from cars order by Model desc ;
++-----------+-------------------+-----------------+---------+--------------+
+| VehicleID | Model             | colour          | price   | Availability |
++-----------+-------------------+-----------------+---------+--------------+
+|       225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
+|       224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|       223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|       221 | Discovey sport    | Snow white      | 1500000 |            5 |
+|       222 | Defender          | Metallic Grey   | 1800000 |            3 |
++-----------+-------------------+-----------------+---------+--------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from cars order by colour ;
++-----------+-------------------+-----------------+---------+--------------+
+| VehicleID | Model             | colour          | price   | Availability |
++-----------+-------------------+-----------------+---------+--------------+
+|       225 | Range Rover Velar | Metallic Black  | 2200000 |            1 |
+|       222 | Defender          | Metallic Grey   | 1800000 |            3 |
+|       223 | Range Rover       | Metallic Silver | 1300000 |            4 |
+|       224 | Range Rover Sport | Raging Red      | 2000000 |            2 |
+|       221 | Discovey sport    | Snow white      | 1500000 |            5 |
++-----------+-------------------+-----------------+---------+--------------+
+5 rows in set (0.00 sec)
+
+And Or Not:
+
+mysql> select * from cars where Model='Defender'and price='1800000' ;
++-----------+----------+---------------+---------+--------------+
+| VehicleID | Model    | colour        | price   | Availability |
++-----------+----------+---------------+---------+--------------+
+|       222 | Defender | Metallic Grey | 1800000 |            3 |
++-----------+----------+---------------+---------+--------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from cars where Model='Range Rover'or price='1300000' ;
++-----------+-------------+-----------------+---------+--------------+
+| VehicleID | Model       | colour          | price   | Availability |
++-----------+-------------+-----------------+---------+--------------+
+|       223 | Range Rover | Metallic Silver | 1300000 |            4 |
++-----------+-------------+-----------------+---------+--------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from cars where not price='1300000' ;
++-----------+-------------------+----------------+---------+--------------+
+| VehicleID | Model             | colour         | price   | Availability |
++-----------+-------------------+----------------+---------+--------------+
+|       221 | Discovey sport    | Snow white     | 1500000 |            5 |
+|       222 | Defender          | Metallic Grey  | 1800000 |            3 |
+|       224 | Range Rover Sport | Raging Red     | 2000000 |            2 |
+|       225 | Range Rover Velar | Metallic Black | 2200000 |            1 |
++-----------+-------------------+----------------+---------+--------------+
+4 rows in set (0.00 sec)
+
+
